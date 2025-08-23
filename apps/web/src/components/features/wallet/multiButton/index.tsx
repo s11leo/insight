@@ -10,7 +10,7 @@ import {
 import { useIntl } from "react-intl";
 
 import { PublicKey } from "@solana/web3.js";
-import { getRouteApi, useNavigate } from "@tanstack/react-router";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 import debounce from "debounce";
 import { useAtom } from "jotai";
 import { P, match } from "ts-pattern";
@@ -35,7 +35,8 @@ export const WalletMultiButton: React.FC<WalletMultiButtonProps> = memo(
 
     const navigate = useNavigate();
 
-    const { action } = getRouteApi("/").useSearch();
+    const { search } = useRouterState({ select: (s) => s.location });
+    const action = search?.action ?? APP_SEARCH_PARAMS.action.default;
 
     const [autoconnect] = useState<boolean>(
       action === APP_SEARCH_PARAMS.action["connect-wallet"]
@@ -108,7 +109,7 @@ export const WalletMultiButton: React.FC<WalletMultiButtonProps> = memo(
     useEffect(() => {
       if (walletState === WalletButtonState.CONNECTED) {
         navigate({
-          to: "/",
+          to: ".",
           search: { action: APP_SEARCH_PARAMS.action.default }
         });
       }
@@ -136,7 +137,7 @@ export const WalletMultiButton: React.FC<WalletMultiButtonProps> = memo(
       setIsMenuOpen(false);
 
       navigate({
-        to: "/",
+        to: ".",
         search: { action: APP_SEARCH_PARAMS.action.default }
       });
     }, [logout, navigate]);
