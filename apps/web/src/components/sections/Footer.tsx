@@ -1,5 +1,7 @@
 import { KeyboardEvent, RefObject, useRef, useState } from "react";
 
+import { Link } from "@tanstack/react-router";
+
 import Kumeka from "@/assets/icons/Kumeka.svg";
 import Solana from "@/assets/icons/Solana.svg";
 import X from "@/assets/icons/X.svg";
@@ -36,8 +38,12 @@ export const Footer = () => {
             </ul>
 
             <ul className="flex flex-col gap-6 text-lg leading-none">
-              <li className="leading-none">Privacy Policy</li>
-              <li className="leading-none">Terms of Service</li>
+              <Link to="/privacy" className="leading-none">
+                Privacy Policy
+              </Link>
+              <Link to="/terms" className="leading-none">
+                Terms of Service
+              </Link>
               <li className="flex gap-7 leading-none">
                 <a
                   href="https://kumeka.team/"

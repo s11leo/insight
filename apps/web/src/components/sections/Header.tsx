@@ -1,5 +1,7 @@
 import { FC } from "react";
 
+import { Link } from "@tanstack/react-router";
+
 import GlobalIcon from "@/assets/icons/Global.svg";
 import {
   Button,
@@ -19,15 +21,20 @@ export interface HeaderProps {
 export const Header: FC<HeaderProps> = ({ className }) => {
   return (
     <nav
-      className={cn("container mt-6 items-center justify-between", className)}
+      className={cn(
+        "container mt-6 flex items-center justify-between",
+        className
+      )}
     >
       <div className="flex items-center">
-        <Logo />
-
+        {/* @ts-expect-error Tanstack type error */}
+        <Link to="/">
+          <Logo />
+        </Link>
         <ul className="ml-[113px] flex gap-7">
           {NAV_LINKS.map((link, index) => (
             <li key={index}>
-              <a href={link.url}>{link.title}</a>
+              <Link to={link.url}>{link.title}</Link>
             </li>
           ))}
         </ul>
